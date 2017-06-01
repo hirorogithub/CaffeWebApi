@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WEB DEMO</title>
+    <!-- Bootstrap -->
+    <link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+   <div class ="container-fluid">
+		<div class = "row">
+			<div class="col-md-6 col-md-offset-3 ">
+				<div class="btn-group btn-group-justified" role="group">
+					<a class= "btn btn-default" href="./all">ALL</a>
+					<a class= "btn btn-default" href="./age">年龄检测</a>
+					<a class= "btn btn-default" href="./gender">性别检测</a>
+					<a class= "btn btn-default" href="./cascade">人脸检测</a>
+				</div>
+			</div>
+			<div class="page-header col-md-6 col-md-offset-3">
+				<h1>WEB DEMO</h1>			
+			</div>
+
+			<div class = "col-md-6 col-md-offset-3 ">
+				<form id="form" method=post enctype=multipart/form-data>
+					<div class="form-group col-md-9">
+						<input class type="file" name=file>
+					</div>
+					<div class="col-md-3">
+						<button id= "btn"class ="btn btn-success" type="submit">上传</button>
+					</div>
+				</form>
+			</div>
+          		<div class="col-md-6 col-md-offset-3 ">
+				<canvas id="canvas" width="{{width}}" height="{{height}}"></canvas> 
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<p>calculate cost time:{{time}}s</p>
+						<p id="label1"></p>
+						<p id="label2"></p>
+					</div>				
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+  </body>
+	<script >  
+	
+	{%if ok %}
+		var body = {{jdata|safe}};//TODO
+		var type = {{type_id}};
+
+		var canvas = document.getElementById("canvas"),  
+		ctx = canvas.getContext("2d"),  
+		img = new Image();  
+						  
+		var offset = 5;
+		img.src = "{{url}}";  
+		img.onload = function() {  
+			ctx.drawImage(img, 0, 0);
+			ctx.font="bold 18pt Arial";  //write age
+			ctx.fillStyle="#00ff00"; 
+		
+			
+ 			
+			if(type==1){//all
+				for (var i=0;i<body.points.length;i++) {
+					ctx.strokeStyle="red";  //draw red stroke rectangle
+					ctx.strokeRect(body.points[i].x1,body.points[i].y1,body.points[i].x2-body.points[i].x1,body.points[i].y2-body.points[i].y1); 
+					ctx.stroke(); 
+	   
+					ctx.fillText(body.ages[i].age,body.points[i].x1,body.points[i].y1-offset);
+					ctx.fillText(body.gender[i].gender,body.points[i].x1,body.points[i].y2+offset);
+				}
+			}
+			else if(type == 2){//cascade
+				for (var i=0;i<body.points.length;i++) {
+					ctx.strokeStyle="red";  //draw red stroke rectangle
+					ctx.strokeRect(body.points[i].x1,body.points[i].y1,body.points[i].x2-body.points[i].x1,body.points[i].y2-body.points[i].y1); 
+					ctx.stroke(); 
+	   
+					ctx.fillText(body.points[i].confidence,body.points[i].x1,body.points[i].y1-offset);
+				}
+			}
+			else if(type == 3){//age
+      				document.getElementById("label1").innerHTML = "age is : "+body.age;
+      				document.getElementById("label2").innerHTML = "confidence is : "+body.confidence;
+			}
+			else if(type == 4){//gender
+				document.getElementById("label1").innerHTML = "gender is : "+body.gender;
+      			document.getElementById("label2").innerHTML = "confidence is : "+body.confidence;
+			}
+ 		
+		}
+	{% endif %}
+		           
+        </script>  
+		
+</html>
+    
