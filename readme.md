@@ -1,3 +1,11 @@
+- Guide
+ - Before running this project,please ensure you have installed caffe,python,flask,(CUDA is maybe optional)
+ - to run this project ,please change your caffe`s path in server/import_caffe.py
+ - default port is 5000
+ - the project offer 4 type api, which include : (return json;return python dict) and (offer file path /offer numpy img data as input )
+ - webdemo path :http://IP:5000/all , http://IP:5000/cascade, http://IP:5000/gender, http://IP:5000/age
+ - api path :http://IP:5000/api/v1.0/all,http://IP:5000/api/v1.0/cascade,http://IP:5000/api/v1.0/gender,http://IP:5000/api/v1.0/age 
+
 - 使用指导
  - 阅读环境配置http://blog.csdn.net/qq_24328101/article/details/72837466,
  - 安装完caffe环境后，保持本目录文件结构进行使用（如需修改目录结构，请阅读flask关于文件配置的位置的文档，以及修改源码中关于model和图片的路径）
