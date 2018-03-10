@@ -81,6 +81,7 @@ def IoM(rect_1, rect_2):
     rect2_area = (y22 - y21) * (x22 - x21)
     min_area = min(rect1_area, rect2_area)
     return float(intersection) / min_area
+
 def localNMS(rectangles):
     '''
     :param rectangles:  list of rectangles, which are lists in format [x11, y11, x12, y12, confidence, current_scale],
@@ -109,6 +110,7 @@ def localNMS(rectangles):
         cur_rect += 1   # finished comparing for current rectangle
 
     return result_rectangles
+
 def globalNMS(rectangles):
     '''
     :param rectangles:  list of rectangles, which are lists in format [x11, y11, x12, y12, confidence, current_scale],

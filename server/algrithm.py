@@ -22,8 +22,9 @@ def all_japi_path(path):
     "ages":tmp_age,
     "gender":tmp_gender
     }
-    return json.dumps(result,indent=4)
-     
+    # return json.dumps(result,indent=4)
+    return result
+
 
 #api version:
 #api that return json
@@ -33,7 +34,8 @@ def cascade_japi_face(face,path,for_age = False):
     "points":data
     }
     print(json.dumps(tmp))
-    return json.dumps(tmp)
+    # return json.dumps(tmp)
+    return tmp
 
 def cascade_japi_path(path,for_age = False):
     return cascade_japi_face(cv2.imread(path),path,for_age)
@@ -78,10 +80,10 @@ def cascade_api_path(path,for_age = False):
 #age api
 #api that return json
 def age_japi_face(face):
-    return json.dumps(age_api_face(face),indent=4)
+    return age_api_face(face)
 
 def age_japi_path(path):
-    return json.dumps(age_api_path(path),indent=4)
+    return age_api_path(path)
 
 #apt that return dict
 def age_api_face(face):
@@ -94,10 +96,10 @@ def age_api_path(path):
 #gender api
 #api that return json
 def gender_japi_face(face):
-    return json.dumps(gender_api_face(face),indent=4)
+    return gender_api_face(face)
 
 def gender_japi_path(path):
-    return json.dumps(gender_api_path(path),indent=4)
+    return gender_api_path(path)
 
 #apt that return dict
 def gender_api_face(face):
